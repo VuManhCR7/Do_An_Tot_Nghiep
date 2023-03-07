@@ -1,0 +1,9 @@
+1. Chạy file database.sql trong folder database
+2. Sửa <connection> String theo db;
+3. Đăng nhập trang admin với tài khoản:
+	username: admin	
+	password: 1
+4. Vào Quản lý danh mục trên thanh menu dọc
+5. Sau khi thêm sửa xóa thao tác trong admin thì ra ngoài trang Home của Client để kiểm tra sự thay đổi của thanh menu Danh mục sản phẩm
+- Conneciton String:
+Data Source=DESKTOP-VD1QFAM\SQLEXPRESS;Initial Catalog=QLBHDienThoai;Persist Security Info=True;User ID=sa;Password=***********

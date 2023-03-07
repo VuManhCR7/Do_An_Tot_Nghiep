@@ -1,0 +1,320 @@
+﻿@model IEnumerable<WebBanDienThoai.Models.Category>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+
+}
+
+<h2>Quản lý danh mục</h2>
+
+@*<p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedAt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UpdateAt)
+            </th>
+            <th></th>
+        </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedAt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UpdateAt)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            </td>
+        </tr>
+    }
+
+    </table>*@
+<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+    <!-- Topbar Search -->
+    <form action="" method="get" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+        <div class="input-group border">
+            <input id="inputSearch" name="" type="text" class="form-control bg-light border-0 small" placeholder="Tìm kiếm theo ID" aria-label="Search" aria-describedby="basic-addon2">
+            <div class="input-group-append">
+                <button id="btnSearch" class="btn btn-primary" type="button">
+                    <i class="fas fa-search fa-sm"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+</nav>
+<div class="col-lg-10">
+    <button id="btnAdd" type="button" class="btn btn-info">Thêm</button>
+    <button id="btnReLoad" type="button" class="btn btn-outline-success  btn-light">Làm mới</button>
+</div>
+
+<table class="table table-striped" id="tblCategory">
+    <thead>
+        <tr>
+            <th scope="col">ID danh mục</th>
+            <th scope="col">Tên danh mục</th>
+            <th>Chức Năng</th>
+        </tr>
+    </thead>
+    <tbody>
+        @* Tr gender dưới script *@
+    </tbody>
+</table>
+
+<div class="formNhap" id="formAdd">
+    <div class="form-group">
+        <h3>Thêm danh mục</h3>
+        <label for="exampleInputEmail1">Tên danh mục</label>
+        <input class="form-control" id="InputName"  placeholder="Tên danh mục">
+    </div>
+    <button type="button" class="btn btn-danger btn-hide-parent">Hủy</button>
+    <button id="btnPost" type="button" class="btn btn-primary">Xác nhận</button>
+</div>
+
+<div id="formEdit" class="formNhap">
+    <h3>Sửa danh mục</h3>
+    <div class="form-group">
+        <label for="exampleInputEmail1">ID</label>
+        <input type="text" disabled class="form-control" id="IDFormEdit" aria-describedby="emailHelp" placeholder="ID">
+    </div>
+    <div class="form-group">
+        <label for="exampleInputEmail1">Tên danh mục</label>
+        <input type="text" class="form-control" id="NameFormEdit" aria-describedby="emailHelp" placeholder="Tên danh mục">
+    </div>
+    <button type="button" class="btn btn-danger btn-hide-parent">Hủy</button>
+    <button id="btnEdit" type="button" class="btn btn-primary">Xác nhận</button>
+</div>
+<style>
+    .formNhap {
+        padding: 15px;
+        border-radius: 5px;
+        width: 400px;
+        display: none;
+        z-index: 5;
+        position: absolute;
+        top: 100px;
+        left: 250px;
+        background-color: blue;
+        color: white
+    }
+</style>
+<script src="~/Assets/Client/js/jquery-1.7.2.min.js"></script>
+<script>
+    $(document).ready(function () {
+        new PageCate();
+    });
+    //Tạo class PageCate: Thêm, Sửa, Xóa, Tìm kiếm theo ID của Danh mục Sản phẩm
+    class PageCate {
+        constructor() {
+            this.loadData();
+            this.eventButton();
+
+        }
+        //Các sự kiện bấm nút:
+        eventButton() {
+            //Bấm nút Ẩn form:
+            $('.btn-hide-parent').click(function () { $('#formAdd').hide(500); $('#formEdit').hide(500) });
+            //Bấm nút thêm:
+            $('#btnAdd').click(this.BtnAddOnClick.bind(this));
+            //Bấm nút xác nhận cất dữ liệu:
+            $('#btnPost').click(this.BtnPostOnClick.bind(this));
+            //Bấm nút xóa:
+            $('.btnDelete').click(this.btnDeleteOnclick);
+            //Bấm nút sửa:
+            $('.btnEdit').click(this.btnEditOnclick);
+            //Bấm nút xác nhận sửa dữ liệu:
+            $("#btnEdit").click(this.btnPutOnclick);
+            //Bấm nút tìm kiếm:
+            $("#btnSearch").click(this.BtnSearchOnClick);
+            //Bấm nút Làm mới:
+            $("#btnReLoad").click(this.BtnReLoadOnClick.bind(this));
+
+
+        }
+
+        //Load dữ liệu:
+        loadData() {
+            //clear dữ liệu cũ
+            $("#tblCategory tbody").empty();
+            //Lấy dữ liệu từ api trả về
+            $.ajax({
+                type: "GET",
+                url: "https://localhost:44305/Api/Categories/",
+                async: false,
+                success: function (lstCategory) {
+                    //duyệt từng phần tử trong employee:
+                    for (const item of lstCategory) {
+                        var trHTML = $(`<tr>
+                                        <td>${item.ID}</td>
+                                        <td>${item.Name}</td>
+                                        <td>
+                                            <button type="button" class="btn btn-primary btnEdit">Sửa</button>
+                                            <button type="button" class="btn btn-danger btnDelete">Xóa</button>
+                                        </td>
+                                    </tr>`);
+                        //Lưu trữ khóa chính của dòng dữ liệu hiện tại
+                        trHTML.data('ID', item.ID);
+                        trHTML.data('Category', item);
+                        //append vào tbody:
+                        $('#tblCategory tbody').append(trHTML);
+                    }
+                }
+            });
+        }
+
+        //Bấm nút thêm:
+        BtnAddOnClick() {
+            // Làm trống các input:
+            $('#formAdd input').val(null);
+            //Hiển thị form thêm 1 danh mục:
+            $('#formAdd').show(500);
+        }
+        //Bấm nút xác nhận thêm(form thêm):
+        BtnPostOnClick() {
+            var me = this;
+            //Gọi hàm savedata để dữ liệu:
+            me.saveData();
+            // Ẩn form nhập:
+            $('#formAdd').hide();
+            //Thông báo thành công:
+            alert('Thành công');
+            //Load lại data:
+            location.reload();
+        }
+        //Tiến hành lưu dữ liệu:
+        saveData() {
+            //Binding dữ liệu:
+            let CategoryPost = {};
+            CategoryPost.Name = $('#InputName').val();
+            //lời gọi ajax để Post dữ liệu:
+            $.ajax({
+                type: "POST",
+                url: "https://localhost:44305/api/Categories",
+                async: false,
+                data: JSON.stringify(CategoryPost),
+                dataType: "json",
+                contentType: "application/json",
+                success: function (response) {
+                    console.log('Done');
+                }                
+            });
+        }
+
+        //Tiến hành Xoá dữ liệu:
+        btnDeleteOnclick() {
+            //lấy ra dòng dữ liệu cần xóa:
+            var trSelected = $(this).parent().parent();
+            //Lấy id của dòng dữ liệu được chọn -> để gọi phương thức Xóa:
+            var idSelected = trSelected.data("ID");
+            //Gọi dùng ajax gọi đến api xóa:
+            $.ajax({
+                url: `https://localhost:44305/api/Categories/${idSelected}`,
+                type: 'DELETE',
+                success: function (respone) {
+                    // Do something with the result
+                    console.log('Done');
+                },
+            });
+            //Thông báo thành công:
+            alert("Thành công");
+            //Load lại dữ liệu:
+            location.reload();
+        }
+        //Bấm nút sửa:
+        btnEditOnclick() {
+            $("#formEdit").show(500);
+            //Lấy thông tin dòng được chọn để sửa:
+            var trSelected = $(this).parent().parent();
+            //Lấy thông tin ID, Name của dòng đang được chọn:
+            var cat = $(trSelected).data("Category");
+            //Binding lên form Edit:
+            $("#NameFormEdit").val(cat.Name);
+            $("#IDFormEdit").val(cat.ID);
+        }
+        //Bấm nút Xác nhận Sửa(form sửa):
+        btnPutOnclick() {
+            //Binding id và category để gọi api PUT:
+            var id = $("#IDFormEdit").val();
+            var cat = {};
+            cat.Name = $("#NameFormEdit").val();
+            cat.ID = id;
+            cat.CreatedAt = null;
+            cat.UpdateAt = null;
+
+            //binding data JSON để PUT:
+            var obj = {};
+            obj.ID = id;
+            obj.Name = cat.Name;
+            obj.Category = cat;
+            //Lời gọi api PUT bằng ajax:
+            $.ajax({
+                url: `https://localhost:44305/api/Categories/${obj.ID}`,
+                type: 'PUT',
+                data: obj,
+                dataType: "json",
+                success: function (res) {
+                    console.log("Done");
+                }
+            });
+            //ẩn form nhập:
+
+            //Thông báo thành công:
+            alert("Thành công");
+            //Load lại trang:
+            location.reload();
+        }
+
+        //Bấm nút Tìm kiếm:
+        BtnSearchOnClick() {
+            //Tìm kiếm theo id:
+            var id = $("#inputSearch").val();
+            //clear dữ liệu cũ
+            $("#tblCategory tbody").empty();
+            //Lấy dữ liệu từ api trả về
+            $.ajax({
+                type: "GET",
+                url: `https://localhost:44305/Api/Categories/${id}`,
+                async: false,
+                success: function (res) {
+                    if (res) {
+                        //duyệt từng phần tử trong employee:
+                        var trHTML = $(`<tr>
+                                        <td>${res.ID}</td>
+                                        <td>${res.Name}</td>
+                                        <td>
+                                            <button type="button" class="btn btn-primary btnEdit">Sửa</button>
+                                            <button type="button" class="btn btn-danger btnDelete">Xóa</button>
+                                        </td>
+                                    </tr>`);
+                        //Lưu trữ khóa chính của dòng dữ liệu hiện tại
+                        trHTML.data('ID', res.ID);
+                        trHTML.data('Category', res);
+                        //append vào tbody:
+                        $('#tblCategory tbody').append(trHTML);
+                    }
+                }
+            });
+        }
+
+        //Bấm nút Làm mới:
+        BtnReLoadOnClick() {
+            this.loadData();
+            location.reload();
+        }
+    }
+</script>

@@ -1,0 +1,17 @@
+﻿@using WebBanDienThoai.Models
+@{ 
+    ShopMobileDbContext db = new ShopMobileDbContext();
+    var lstCategory = db.Categories.ToList();
+}
+
+<div class="categories">
+    <h3>Danh mục sản phẩm</h3>
+    @foreach (var item in lstCategory)
+    {
+        <ul>
+            <li><a href="#">@item.Name</a></li>
+        </ul>
+    }
+
+</div>
+
