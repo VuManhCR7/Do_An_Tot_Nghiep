@@ -7,3 +7,81 @@
 5. Sau khi thêm sửa xóa thao tác trong admin thì ra ngoài trang Home của Client để kiểm tra sự thay đổi của thanh menu Danh mục sản phẩm
 - Conneciton String:
 Data Source=DESKTOP-VD1QFAM\SQLEXPRESS;Initial Catalog=QLBHDienThoai;Persist Security Info=True;User ID=sa;Password=***********
+Tài khoản admin: 
+vumanh285
+123456
+Tài khoản User:
+user
+280501
+
+Dưới đây là một ví dụ cơ bản về cách sử dụng Web API để thêm sản phẩm vào giỏ hàng và hiển thị danh sách sản phẩm trong giỏ hàng:
+
+Đầu tiên, bạn cần tạo một model để đại diện cho sản phẩm:
+
+csharp
+Copy code
+public class Product
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public decimal Price { get; set; }
+}
+Tiếp theo, bạn cần tạo một controller để quản lý giỏ hàng và cung cấp các API cho nó:
+
+csharp
+Copy code
+public class CartController : ApiController
+{
+    private static List<Product> _products = new List<Product>();
+ 
+    [HttpGet]
+    public IHttpActionResult GetCart()
+    {
+        return Ok(_products);
+    }
+ 
+    [HttpPost]
+    public IHttpActionResult AddToCart(int id, string name, decimal price)
+    {
+        var product = new Product { Id = id, Name = name, Price = price };
+        _products.Add(product);
+ 
+        return Ok();
+    }
+}
+Trong ví dụ này, chúng ta sử dụng một danh sách đơn giản để lưu trữ các sản phẩm trong giỏ hàng. API GetCart trả về danh sách các sản phẩm trong giỏ hàng, và API AddToCart sẽ thêm một sản phẩm mới vào giỏ hàng.
+
+Cuối cùng, bạn có thể sử dụng JavaScript để gọi các API này và hiển thị danh sách sản phẩm trong giỏ hàng trên trang web:
+
+javascript
+Copy code
+function getCart() {
+    $.ajax({
+        url: '/api/cart',
+        type: 'GET',
+        success: function(products) {
+            var html = '';
+ 
+            for (var i = 0; i < products.length; i++) {
+                var product = products[i];
+                html += '<li>' + product.Name + ' - ' + product.Price + '</li>';
+            }
+ 
+            $('#cart').html(html);
+        }
+    });
+}
+ 
+function addToCart(id, name, price) {
+    $.ajax({
+        url: '/api/cart',
+        type: 'POST',
+        data: { id: id, name: name, price: price },
+        success: function() {
+            getCart();
+        }
+    });
+}
+Trong ví dụ này, chúng ta sử dụng jQuery để gọi các API GetCart và AddToCart. Hàm getCart sẽ lấy danh sách sản phẩm trong giỏ hàng và hiển thị chúng trên trang web. Hàm addToCart sẽ thêm một sản phẩm mới vào giỏ hàng bằng cách gọi API AddToCart, sau đó gọi lại hàm getCart để cập nhật danh sách sản phẩm.
+
+Hy vọng ví dụ này sẽ giúp bạn có cái nhìn tổng quan về cách tích hợp Web API vào chức năng giỏ hàng trong ứng dụng web bán hàng bằng ASP.Net.

@@ -7,6 +7,7 @@ namespace WebBanDienThoai.Models
     using System.Data.Entity.Spatial;
 
     [Table("Cart")]
+    [Serializable]
     public partial class Cart
     {
         public int ID { get; set; }

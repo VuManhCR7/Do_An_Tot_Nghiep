@@ -28,7 +28,7 @@ namespace WebBanDienThoai.Areas.Admin.Controllers
             var acc = db.Users.SingleOrDefault(x => x.Username == username && x.Password == password);
             if (acc != null)
             {
-                if (acc.RoleID == 1)
+                if (acc.RoleID == 2)
                 {
                     // Đăng nhập admin thành công:
                     //Gán session:
@@ -36,7 +36,7 @@ namespace WebBanDienThoai.Areas.Admin.Controllers
                     //Chuyển tới trang Home quản trị
                     return RedirectToAction("Index", new { area = "Admin", controller = "Home" });
                 }
-                if (acc.RoleID == 2)
+                if (acc.RoleID == 1)
                 {
                     //Đăng  nhập user thành công:
                     //Gán session:

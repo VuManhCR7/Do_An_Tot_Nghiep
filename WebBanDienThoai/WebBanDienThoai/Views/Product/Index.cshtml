@@ -1,4 +1,5 @@
-﻿
+﻿@model WebBanDienThoai.Models.Product
+
 <div class="main">
     <div class="content">
         <div class="content_top">
@@ -13,7 +14,7 @@
         <div class="section group">
             @foreach (var item in ViewBag.listNewProducts)
             {
-                var url = "/add-to-cart?" + "productId=" + item.ID + "&" + "quantity=1";
+
                 <div class="grid_1_of_4 images_1_of_4" style="display: inline-block">
                     <a href="preview.html"><img sizes="40px" src="~/wwwroot/images/Products/@item.Image" alt="" /></a>
                     <h2>@item.Name</h2>
@@ -22,7 +23,7 @@
                             <p><span class="rupees">@item.Price</span>VNĐ</p>
                         </div>
                         <div class="add-cart">
-                            <h4><a href="@url">Thêm vào giỏ</a></h4>
+                            <h4><a href="/add-to-cart?productId=@item.ID&quantity=1">Thêm vào giỏ</a></h4>
                         </div>
                         <div class="clear"></div>
                     </div>
@@ -61,3 +62,4 @@
         </div>
     </div>
 </div>
+

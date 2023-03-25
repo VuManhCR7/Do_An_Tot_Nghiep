@@ -177,8 +177,8 @@ D:\DeTaiNghienCuuKhoaHoc_ASPNET\WebBanDienThoai\WebBanDienThoai\bin\System.Web.W
 D:\DeTaiNghienCuuKhoaHoc_ASPNET\WebBanDienThoai\WebBanDienThoai\bin\System.Web.WebPages.Razor.xml
 D:\DeTaiNghienCuuKhoaHoc_ASPNET\WebBanDienThoai\WebBanDienThoai\bin\Antlr3.Runtime.pdb
 D:\DeTaiNghienCuuKhoaHoc_ASPNET\WebBanDienThoai\WebBanDienThoai\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-D:\DeTaiNghienCuuKhoaHoc_ASPNET\WebBanDienThoai\WebBanDienThoai\obj\Debug\WebBanDienThoai.csproj.AssemblyReference.cache
 D:\DeTaiNghienCuuKhoaHoc_ASPNET\WebBanDienThoai\WebBanDienThoai\obj\Debug\WebBanDienThoai.csproj.CoreCompileInputs.cache
 D:\DeTaiNghienCuuKhoaHoc_ASPNET\WebBanDienThoai\WebBanDienThoai\obj\Debug\WebBanDienThoai.csproj.CopyComplete
 D:\DeTaiNghienCuuKhoaHoc_ASPNET\WebBanDienThoai\WebBanDienThoai\obj\Debug\WebBanDienThoai.dll
 D:\DeTaiNghienCuuKhoaHoc_ASPNET\WebBanDienThoai\WebBanDienThoai\obj\Debug\WebBanDienThoai.pdb
+D:\DeTaiNghienCuuKhoaHoc_ASPNET\WebBanDienThoai\WebBanDienThoai\obj\Debug\WebBanDienThoai.csproj.AssemblyReference.cache
