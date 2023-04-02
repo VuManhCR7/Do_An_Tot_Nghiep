@@ -20,6 +20,18 @@ namespace WebBanDienThoai
                 namespaces: new[] { "WebBanDienThoai.Controllers" }
             );
             routes.MapRoute(
+                name: "Product Detail",
+                url: "chi-tiet/{pId}",
+                defaults: new { controller = "Product", action = "Detail", id = UrlParameter.Optional },
+                namespaces: new[] { "WebBanDienThoai.Controllers" }
+            );
+            routes.MapRoute(
+                name: "Product By Category",
+                url: "danh-muc/{cId}",
+                defaults: new { controller = "Product", action = "GetProductList", id = UrlParameter.Optional },
+                namespaces: new[] { "WebBanDienThoai.Controllers" }
+            );
+            routes.MapRoute(
                 name: "About",
                 url: "gioi-thieu",
                 defaults: new { controller = "About", action = "Index", id = UrlParameter.Optional },
@@ -35,6 +47,24 @@ namespace WebBanDienThoai
                 name: "Contact",
                 url: "lien-he",
                 defaults: new { controller = "Contact", action = "Index", id = UrlParameter.Optional },
+                namespaces: new[] { "WebBanDienThoai.Controllers" }
+            );
+            routes.MapRoute(
+                name: "Cart",
+                url: "gio-hang",
+                defaults: new { controller = "Cart", action = "Update", id = UrlParameter.Optional },
+                namespaces: new[] { "WebBanDienThoai.Controllers" }
+            );        
+            routes.MapRoute(
+                name: "Payment",
+                url: "thanh-toan",
+                defaults: new { controller = "Cart", action = "Payment", id = UrlParameter.Optional },
+                namespaces: new[] { "WebBanDienThoai.Controllers" }
+            );
+            routes.MapRoute(
+                name: "Payment Success",
+                url: "hoan-thanh",
+                defaults: new { controller = "Cart", action = "Success", id = UrlParameter.Optional },
                 namespaces: new[] { "WebBanDienThoai.Controllers" }
             );
             routes.MapRoute(

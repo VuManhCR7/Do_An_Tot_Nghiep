@@ -5,11 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link href="~/Assets/Client/css/style.css" rel="stylesheet" type="text/css" media="all" />
     <link href="~/Assets/Client/css/slider.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="~/Assets/Client/css/global.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="~/Assets/Client/css/easy-responsive-tabs.css" rel="stylesheet" type="text/css" media="all" />
     <script type="text/javascript" src="~/Assets/Client/js/jquery-1.7.2.min.js"></script>
     <script type="text/javascript" src="~/Assets/Client/js/move-top.js"></script>
     <script type="text/javascript" src="~/Assets/Client/js/easing.js"></script>
+    <script type="text/javascript" src="~/Assets/Client/js/easyResponsiveTabs.js"></script>
+    <script type="text/javascript" src="~/Assets/Client/js/slides.min.jquery.js"></script>
     <script type="text/javascript" src="~/Assets/Client/js/startstop-slider.js"></script>
     <script type="text/javascript" src="~/Assets/Client/js/active.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
 </head>
 <body>
     <div class="wrap">
@@ -19,8 +25,7 @@
                     <p><span>Trợ giúp?</span> Gọi cho chúng tôi: <span class="number"><a href="tel:+0123456788">0123456788</a></span></span></p>
                 </div>
                 <div class="account_desc">
-                    <ul>
-                        <li>@Html.ActionLink("Đăng kí", "Index", "Users")</li>
+                    <ul>                        
                         <li>@Html.ActionLink("Đăng nhập", "Login", new { area = "Admin", controller = "Default" })</li>
                     </ul>
                 </div>
@@ -30,16 +35,7 @@
                 <div class="logo">
                     <a href="index.html"><img src="~/wwwroot/images/logo.png" alt="" /></a>
                 </div>
-                <div class="cart">
-                    <p>
-                        <span>Giỏ hàng:</span><div id="dd" class="wrapper-dropdown-2">
-                            0 item(s) - $0.00
-                            <ul class="dropdown">
-                                <li>Bạn chưa có sản phẩm nào trong giỏ hàng!</li>
-                            </ul>
-                        </div>
-                    </p>
-                </div>
+                @{ Html.RenderAction("HeaderCart", "Home");}
                 <script type="text/javascript">
                     function DropDown(el) {
                         this.dd = el;
@@ -80,11 +76,6 @@
                         <div class="clear"></div>
                     </ul>
                 </div>              
-                <div class="search_box">
-                    <form>
-                        <input type="text" placeholder="Tìm kiếm ở đây" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Tìm kiếm ở đây';}"><input type="submit" value="">
-                    </form>
-                </div>
                 <div class="clear"></div>
             </div>
             @Html.Partial("_Slider")
@@ -139,5 +130,6 @@
         </div>
     </div>
     <a href="#" id="toTop"><span id="toTopHover"> </span></a>
+    @RenderSection("jsFooter", required: false)
 </body>
 </html>

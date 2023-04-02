@@ -6,7 +6,7 @@
                 <h3>Sản phẩm mới</h3>
             </div>
             <div class="see">
-                <p><a href="#">Xem tất cả</a></p>
+                <p><a href="/san-pham">Xem tất cả</a></p>
             </div>
             <div class="clear"></div>
         </div>
@@ -15,11 +15,11 @@
             {
                 var url = "/add-to-cart?" + "productId=" + item.ID + "&" + "quantity=1";
                 <div class="grid_1_of_4 images_1_of_4" style="display: inline-block">
-                    <a href="preview.html"><img sizes="40px" src="~/wwwroot/images/Products/@item.Image" alt="" /></a>
+                    <a href="/chi-tiet/@item.ID"><img sizes="40px" style="width: 225px;height:225px;" src="~/wwwroot/images/Products/@item.Image" alt="" /></a>
                     <h2>@item.Name</h2>
                     <div class="price-details">
                         <div class="price-number">
-                            <p><span class="rupees">@item.Price</span>VNĐ</p>
+                            <p><span class="rupees">@item.Price.ToString("N0")</span> VND</p>
                         </div>
                         <div class="add-cart">
                             <h4><a href="@url">Thêm vào giỏ</a></h4>
@@ -37,7 +37,7 @@
                 <h3>Sản phẩm hot</h3>
             </div>
             <div class="see">
-                <p><a href="#">Xem tất cả</a></p>
+                <p><a href="/san-pham">Xem tất cả</a></p>
             </div>
             <div class="clear"></div>
         </div>
@@ -45,11 +45,11 @@
             @foreach (var item in ViewBag.listHotProducts)
             {
                 <div class="grid_1_of_4 images_1_of_4" style="display: inline-block">
-                    <a href="preview.html"><img sizes="40px" src="~/wwwroot/images/Products/@item.Image" alt="" /></a>
+                    <a href="/chi-tiet/@item.ID"><img sizes="40px" style="width: 225px;height:225px;" src="~/wwwroot/images/Products/@item.Image" alt="" /></a>
                     <h2>@item.Name</h2>
                     <div class="price-details">
                         <div class="price-number">
-                            <p><span class="rupees">@item.Price</span>VNĐ</p>
+                            <p><span class="rupees">@item.Price.ToString("N0")</span> VND</p>
                         </div>
                         <div class="add-cart">
                             <h4><a href="/add-to-cart?productId=@item.ID&quantity=1">Thêm vào giỏ</a></h4>

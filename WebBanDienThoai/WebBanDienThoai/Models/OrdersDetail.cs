@@ -9,6 +9,25 @@ namespace WebBanDienThoai.Models
     [Table("OrdersDetail")]
     public partial class OrdersDetail
     {
+        ShopMobileDbContext db = null;
+        public OrdersDetail()
+        {
+            db = new ShopMobileDbContext();
+        }
+
+        public bool Insert(OrdersDetail detail)
+        {
+            try
+            {
+                db.OrdersDetails.Add(detail);
+                db.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
         public int ID { get; set; }
 
         public int OrderID { get; set; }

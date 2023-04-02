@@ -8,10 +8,18 @@ namespace WebBanDienThoai.Models
 
     public partial class Order
     {
+        ShopMobileDbContext db = new ShopMobileDbContext();
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Order()
         {
             OrdersDetails = new HashSet<OrdersDetail>();
+        }
+
+        public int Insert(Order order)
+        {
+            db.Orders.Add(order);
+            db.SaveChanges();
+            return order.ID;
         }
 
         public int ID { get; set; }

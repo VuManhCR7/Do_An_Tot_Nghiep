@@ -15,9 +15,31 @@ namespace WebBanDienThoai.Controllers
         {
             ViewBag.Title = "Product Page";
             //Sản phẩm mới:
-            ViewBag.listNewProducts = db.Products.OrderByDescending(p => p.Name).Take(6).ToList();
+            ViewBag.listNewProducts = db.Products.OrderByDescending(p => p.Name).Take(10).ToList();
             //Sản phẩm hot:
-            ViewBag.listHotProducts = db.Products.OrderBy(p => p.Price).Take(6).ToList();
+            ViewBag.listHotProducts = db.Products.OrderBy(p => p.Price).Take(10).ToList();
+            return View();
+        }
+
+        public ActionResult Detail(int pId)
+        {
+            //Xem chi tiết sản phẩm thông qua ProductID
+            ViewBag.productDetails = db.Products.Where(x => x.ID == pId).ToList();
+
+            //Lấy danh sách sản phẩm liên quan đến danh mục
+            var product = db.Products.Find(pId);
+            ViewBag.productCateId = db.Products.Where(x => x.ID != pId && x.CategoryID == product.CategoryID).ToList();
+            return View();
+        }
+
+        public ActionResult GetProductList(int cId)
+        {
+            //Lấy thông tin chi tiết của Danh mục thông qua CategoryID
+            ViewBag.cate = db.Categories.Where(x => x.ID == cId).ToList();
+
+            //Lấy danh sách sản phẩm theo danh mục
+            var category = db.Categories.Find(cId);
+            ViewBag.productByCateId = db.Products.Where(x => x.CategoryID == category.ID).ToList();
             return View();
         }
     }

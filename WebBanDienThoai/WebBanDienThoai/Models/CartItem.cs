@@ -8,8 +8,11 @@ namespace WebBanDienThoai.Models
     [Serializable]
     public class CartItem
     {
-        public Product product { get; set; }
-
+        public CartItem()
+        {
+            Product = new Product();
+        }
+        public Product Product { get; set; }
         public int Quantity { get; set; }
     }
 }

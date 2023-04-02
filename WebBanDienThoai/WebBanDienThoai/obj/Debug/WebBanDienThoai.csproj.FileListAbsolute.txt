@@ -182,3 +182,7 @@ D:\DeTaiNghienCuuKhoaHoc_ASPNET\WebBanDienThoai\WebBanDienThoai\obj\Debug\WebBan
 D:\DeTaiNghienCuuKhoaHoc_ASPNET\WebBanDienThoai\WebBanDienThoai\obj\Debug\WebBanDienThoai.dll
 D:\DeTaiNghienCuuKhoaHoc_ASPNET\WebBanDienThoai\WebBanDienThoai\obj\Debug\WebBanDienThoai.pdb
 D:\DeTaiNghienCuuKhoaHoc_ASPNET\WebBanDienThoai\WebBanDienThoai\obj\Debug\WebBanDienThoai.csproj.AssemblyReference.cache
+D:\DeTaiNghienCuuKhoaHoc_ASPNET\WebBanDienThoai\WebBanDienThoai\bin\PagedList.dll
+D:\DeTaiNghienCuuKhoaHoc_ASPNET\WebBanDienThoai\WebBanDienThoai\bin\PagedList.Mvc.dll
+D:\DeTaiNghienCuuKhoaHoc_ASPNET\WebBanDienThoai\WebBanDienThoai\bin\PagedList.xml
+D:\DeTaiNghienCuuKhoaHoc_ASPNET\WebBanDienThoai\WebBanDienThoai\bin\PagedList.Mvc.xml

@@ -1,0 +1,172 @@
+﻿@using WebBanDienThoai.Models
+@{
+    ShopMobileDbContext db = new ShopMobileDbContext();
+    var lstCategory = db.Categories.ToList();
+}
+
+<div class="main">
+    <div class="content">
+        <div class="content_top">
+            <div class="back-links">
+                <p><a href="/Home/Index">Trang chủ</a> / <a href="/san-pham">Sản phẩm</a> / <a href="#">Chi tiết sản phẩm</a></p>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="section group">
+            @foreach (var item in ViewBag.productDetails)
+            {
+                <div class="cont-desc span_1_of_2">
+                    <div class="product-details">
+                        <div class="grid images_3_of_2">
+                            <div id="container">
+                                <div id="products_example">
+                                    <div id="products">
+                                        <div>
+                                            <a href="#" target="_blank"><img style="width: 100%;height:100%;margin-left:auto;margin-right:auto" src="~/wwwroot/images/Products/@item.Image" alt=" " /></a>                                          
+                                        </div>                                       
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="desc span_3_of_2">
+                            <h2>@item.Name</h2>
+                            <p>@item.Description</p>
+                            <div class="price">
+                                <p>Giá: <span>@item.Price.ToString("N0") VND</span></p>
+                            </div>
+                            <div class="available">
+                                <p>Lựa chọn :</p>
+                                <ul>
+                                    <li>
+                                        Màu sắc:
+                                        <select>
+                                            <option>Trắng</option>
+                                            <option>Đen</option>
+                                            <option>Đỏ</option>
+                                        </select>
+                                    </li>
+                                    <li>
+                                        Kích cỡ:<select>
+                                            <option>Lớn</option>
+                                            <option>Vừa</option>
+                                            <option>Nhỏ</option>
+                                        </select>
+                                    </li>
+                                    <li>
+                                        Số lượng:<select>
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                            <option>5</option>
+                                        </select>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="share-desc">
+                                <div class="share">
+                                    <p>Chia sẻ về sản phẩm trên :</p>
+                                    <ul>
+                                        <li><a href="#"><img src="~/Assets/Client/images/facebook.png" alt="" /></a></li>
+                                        <li><a href="#"><img src="~/Assets/Client/images/twitter.png" alt="" /></a></li>
+                                    </ul>
+                                </div>                              
+                                <div class="button"><span><a href="/add-to-cart?productId=@item.ID&quantity=1">Thêm vào giỏ</a></span></div>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="product_desc">
+                        <div id="horizontalTab">
+                            <ul class="resp-tabs-list">
+                                <li>Thông tin chi tiết</li>
+                                <li>Đánh giá về sản phẩm</li>
+                                <div class="clear"></div>
+                            </ul>
+                            <div class="resp-tabs-container">
+                                <div class="product-desc">
+                                    <p>@item.Description</p>
+                                </div>
+                                <div class="review">
+                                    <h4>Được đánh giá bởi <a href="#">Vu Minh Manh</a></h4>
+                                    <ul>
+                                        <li>Giá :<a href="#"><img src="~/Assets/Client/images/price-rating.png" alt="" /></a></li>
+                                        <li>Độ tin cậy :<a href="#"><img src="~/Assets/Client/images/value-rating.png" alt="" /></a></li>
+                                        <li>Chất lượng :<a href="#"><img src="~/Assets/Client/images/quality-rating.png" alt="" /></a></li>
+                                    </ul>
+                                    <p>Đây là một sản phâm thực sự chất lượng. Tôi đã mua và sử dụng nó được 2 năm. Theo cảm nhận của tôi thì đây là một sản phẩm tốt.</p>
+                                    <div class="your-review">
+                                        <h3>Vậy bạn nghĩ sao về sản phẩm của chúng tôi?</h3>
+                                        <p>Hãy để lại đánh giá của bạn ở đây</p>
+                                        <form>
+                                            <div>
+                                                <span><label>Họ tên<span class="red">*</span></label></span>
+                                                <span><input type="text" value=""></span>
+                                            </div>
+                                            <div>
+                                                <span><label>Tóm tắt đánh giá<span class="red">*</span></label></span>
+                                                <span><input type="text" value=""></span>
+                                            </div>
+                                            <div>
+                                                <span><label>Tổng quan<span class="red">*</span></label></span>
+                                                <span><textarea> </textarea></span>
+                                            </div>
+                                            <div>
+                                                <span><input type="submit" value="GỬI"></span>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <script type="text/javascript">
+                        $(document).ready(function () {
+                            $('#horizontalTab').easyResponsiveTabs({
+                                type: 'default', //Types: default, vertical, accordion
+                                width: 'auto', //auto or any width like 600px
+                                fit: true   // 100% fit in a container
+                            });
+                        });</script>
+                    <div class="content_bottom">
+                        <div class="heading">
+                            <h3>Sản phẩm liên quan</h3>
+                        </div>
+                        <div class="see">
+                            <p><a href="/san-pham">Xem tất cả sản phẩm</a></p>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="section group">
+                        @foreach (var p in ViewBag.productCateId)
+                        {
+                        <div class="grid_1_of_4 images_1_of_4">
+                            <a href="/chi-tiet/@p.ID"><img src="~/wwwroot/images/Products/@p.Image" alt=""></a>
+                            <h2>@p.Name</h2>                          
+                            <div class="price-details">
+                                <div class="price">
+                                    <p><span class="rupees">@p.Price.ToString("N0")</span> VND</p>
+                                </div>
+                                <div class="add-cart" style="float:none">
+                                    <h4><a href="/add-to-cart?productId=@p.ID&quantity=1">Thêm vào giỏ</a></h4>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                        </div>                                       
+                        }
+                    </div>
+                </div>
+                <div class="rightsidebar span_3_of_1">
+                    <h2>DANH MỤC SẢN PHẨM</h2>
+                    @foreach (var it in lstCategory)
+                    {
+                        <ul>
+                            <li><a href="#">@it.Name</a></li>
+                        </ul>
+                    }                                  
+                </div>
+            }
+        </div>
+    </div>
+</div>

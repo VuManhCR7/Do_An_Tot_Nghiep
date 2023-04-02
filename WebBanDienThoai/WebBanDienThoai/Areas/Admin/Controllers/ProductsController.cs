@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using WebBanDienThoai.Models;
+using PagedList;
 
 namespace WebBanDienThoai.Areas.Admin.Controllers
 {
@@ -17,10 +18,20 @@ namespace WebBanDienThoai.Areas.Admin.Controllers
 
         // GET: Admin/Products
         [HttpGet]
-        public ActionResult Index(string searchString)
+        public ActionResult Index(string searchString,int ?page)
         {
-            var products = db.Products.Include(p => p.Category);
-            return View(products.ToList());
+            var products = db.Products.Include(x => x.Category).ToList();
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                products = db.Products.Where(p => p.Name.Contains(searchString)).OrderByDescending(x => x.CreatedAt).ToList();
+            }
+
+            int pageSize = 6;
+            int pageNumber = (page ?? 1);
+            //var product = new Product();
+            //var model = product.ListProductPaging(pageIndex, pageSize);
+            ViewBag.SearchString = searchString;
+            return View(products.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Admin/Products/Details/5

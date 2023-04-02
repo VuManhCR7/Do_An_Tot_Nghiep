@@ -52,5 +52,6 @@ namespace WebBanDienThoai.Models
                 .HasForeignKey(e => e.RoleID)
                 .WillCascadeOnDelete(false);
         }
+
     }
 }

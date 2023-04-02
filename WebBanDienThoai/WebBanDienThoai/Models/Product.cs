@@ -1,14 +1,17 @@
 namespace WebBanDienThoai.Models
 {
+    using PagedList;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using System.Linq;
 
     [Table("Product")]
     public partial class Product
     {
+        private ShopMobileDbContext db = new ShopMobileDbContext();
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Product()
         {
@@ -16,7 +19,11 @@ namespace WebBanDienThoai.Models
             OrdersDetails = new HashSet<OrdersDetail>();
         }
 
-        public int ID { get; set; }
+        public IEnumerable<Product> ListProductPaging(int pageIndex, int pageSize)
+        {
+            return db.Products.OrderByDescending(x => x.CreatedAt).ToPagedList(pageIndex, pageSize);
+        }
+        public int ID { get; set; } 
 
         [StringLength(250)]
         public string Name { get; set; }

@@ -1,49 +1,70 @@
 ﻿@model List<WebBanDienThoai.Models.CartItem>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 
-@{ 
+@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="content">
-    <div class="content-top">
-        <div class="clear"></div>
-    </div>
-    <div class="section group">
-        @if (Model.Count > 0)
-        {
-            <table class="table-striped">
-                <thead>
-                    <tr>
-                        <td>Mã SP</td>
-                        <td>Tên SP</td>
-                        <td>Ảnh</td>
-                        <td>Số lượng</td>
-                        <td>Đơn giá</td>
-                        <td>Thành tiền</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>@item.product.ID</td>
-                            <td>@item.product.Name</td>
-                            <td><img src="@item.product.Image" width="100" /></td>
-                            <td><input type="text" class="Quantity" value="@item.Quantity" /></td>
-                            <td>@item.product.Price.GetValueOrDefault(0).ToString("N0")</td>
-                            <td>@((item.product.Price.GetValueOrDefault(0) * item.Quantity).ToString("N0"))</td>
-                        </tr>
+@section jsFooter {
+    <script src="/Assets/Client/js/controller/cartController.js"></script>
+}
 
-                    }
-                </tbody>
-            </table>
-        }
-        else
-        {
-            <span class="alert alert-danger">Chưa có sản phẩm nào trong giỏ hàng!</span>
-        }
+<div class="main">
+    <div class="content">
+        <div class="content-top">
+            <div class="heading">
+                <h3>Thông tin giỏ hàng</h3>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="section group" style="display: grid;">
+            @if (Model.Count > 0)
+            {
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Mã SP</th>
+                            <th>Tên SP</th>
+                            <th>Ảnh</th>
+                            <th>Số lượng</th>
+                            <th>Đơn giá</th>
+                            <th>Thành tiền</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {                        
+                            <tr>
+                                <td>@item.Product.ID</td>
+                                <td>@item.Product.Name</td>
+                                <td><img src="~/wwwroot/images/Products/@item.Product.Image" width="100" /></td>
+                                <td><input type="text" class="txtQuantity" data-id="@item.Product.ID" value="@item.Quantity" /></td>
+                                <td>@item.Product.Price.GetValueOrDefault(0).ToString("N0")</td>
+                                <td>@((item.Product.Price.GetValueOrDefault(0) * item.Quantity).ToString("N0"))</td>
+                                <td><a href="#" data-id="@item.Product.ID" class="btn-delete">Xoá</a></td>
+                            </tr>
+
+                        }
+                    </tbody>
+                </table>
+
+                <div>
+                    <button id="btnContinue" class="btn">Tiếp tục mua hàng</button>
+                    <button id="btnUpdate" class="btn">Cập nhật giỏ hàng</button>
+                    <button id="btnDeleteAll" class="btn">Xoá giỏ hàng</button>
+                    <button id="btnPayment" class="btn">Thanh toán</button>
+                </div>
+                
+            }
+            else
+            {
+                <span class="alert alert-danger">Chưa có sản phẩm nào trong giỏ hàng!</span>
+            }
+        </div>
     </div>
 </div>
+
 
 
