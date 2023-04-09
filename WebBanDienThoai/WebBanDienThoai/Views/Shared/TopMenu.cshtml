@@ -1,0 +1,21 @@
+﻿
+<div class="call">
+    <p><span>Trợ giúp?</span> Gọi cho chúng tôi: <span class="number"><a href="tel:+0123456788">0123456788</a></span></span></p>
+</div>
+<div class="account_desc">
+    @if (Session["user"] == null)
+    {
+        <ul>
+            <li>@Html.ActionLink("Đăng ký", "Register", new { Action = "Register", Controller = "User" })</li>
+            <li>@Html.ActionLink("Đăng nhập", "Login", new { area = "Admin", controller = "Default" })</li>
+        </ul>
+    }
+    else
+    {
+        <ul>
+            <li>Xin chào: @ViewBag.Name</li>
+            <li>@Html.ActionLink("Thoát", "Logout", "User")</li>
+        </ul>
+    }
+</div>
+

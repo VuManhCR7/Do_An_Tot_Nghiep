@@ -1,4 +1,4 @@
-﻿@model WebBanDienThoai.Models.Category
+﻿@model WebBanDienThoai.Models.Order
 
 @{
     ViewBag.Title = "Delete";
@@ -7,17 +7,33 @@
 
 <h2>Xoá</h2>
 
-<h3>Bạn có chắc chắn muốn xoá danh mục này không ?</h3>
+<h3>Bạn có chắc chắn muốn xoá đơn hàng này không?</h3>
 <div>
-    <h4>Thông tin danh mục</h4>
+    <h4>Thông tin đơn hàng</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.DisplayNameFor(model => model.User.Name)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Name)
+            @Html.DisplayFor(model => model.User.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReceivedAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReceivedAddress)
         </dd>
 
         <dt>
@@ -38,8 +54,7 @@
 
     </dl>
 
-    @using (Html.BeginForm())
-    {
+    @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">

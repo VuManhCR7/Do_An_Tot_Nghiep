@@ -1,0 +1,31 @@
+﻿@model WebBanDienThoai.Models.Product
+
+<div class="main">
+    <div class="content">
+        <div class="content_top">
+            <div class="heading">
+                <h3>Kết quả tìm kiếm theo từ khoá: @ViewBag.keyword</h3>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="section group">
+            @foreach (var item in ViewBag.filterByName)
+            {
+
+                <div class="grid_1_of_4 images_1_of_4" style="display: inline-block">
+                    <a href="/chi-tiet/@item.ID"><img sizes="40px" style="width: 225px;height:225px;" src="~/wwwroot/images/Products/@item.Image" alt="" /></a>
+                    <h2>@item.Name</h2>
+                    <div class="price-details">
+                        <div class="price-number">
+                            <p><span class="rupees">@item.Price.ToString("N0")</span> VND</p>
+                        </div>
+                        <div class="add-cart">
+                            <h4><a href="/add-to-cart?productId=@item.ID&quantity=1">Thêm vào giỏ</a></h4>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

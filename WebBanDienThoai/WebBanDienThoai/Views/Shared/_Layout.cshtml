@@ -21,19 +21,12 @@
     <div class="wrap">
         <div class="header">
             <div class="headertop_desc">
-                <div class="call">
-                    <p><span>Trợ giúp?</span> Gọi cho chúng tôi: <span class="number"><a href="tel:+0123456788">0123456788</a></span></span></p>
-                </div>
-                <div class="account_desc">
-                    <ul>                        
-                        <li>@Html.ActionLink("Đăng nhập", "Login", new { area = "Admin", controller = "Default" })</li>
-                    </ul>
-                </div>
+                @{ Html.RenderAction("TopMenu", "Home");}
                 <div class="clear"></div>
             </div>
             <div class="header_top">
                 <div class="logo">
-                    <a href="index.html"><img src="~/wwwroot/images/logo.png" alt="" /></a>
+                    <a href="/Home/Index"><img src="~/Assets/Client/images/logo.png" alt="" /></a>
                 </div>
                 @{ Html.RenderAction("HeaderCart", "Home");}
                 <script type="text/javascript">
@@ -75,7 +68,12 @@
                         <li><a href="/lien-he" id="contact-link">Liên hệ</a></li>
                         <div class="clear"></div>
                     </ul>
-                </div>              
+                </div>
+                <div class="search_box">
+                    <form action="/tim-kiem" method="get">
+                        <input type="text" placeholder="Nhập từ khoá cần tìm ..." id="txtKeyword" name="keyword" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}"><input type="submit" value="">
+                    </form>
+                </div>
                 <div class="clear"></div>
             </div>
             @Html.Partial("_Slider")

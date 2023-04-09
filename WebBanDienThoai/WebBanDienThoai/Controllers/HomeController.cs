@@ -9,10 +9,21 @@ namespace WebBanDienThoai.Controllers
 {
     public class HomeController : Controller
     {
-        private const String CartSession = "CartSession";
+        private const string CartSession = "CartSession";
+        //private const string UserSession = "user";
         ShopMobileDbContext db = new ShopMobileDbContext();
         public ActionResult Index()
-        {
+        {           
+            if (Session["user"] == null)
+            {
+                return RedirectToAction("Login", "User");
+            }
+            else
+            {
+                User acc = (User)Session["User"];
+                ViewBag.Name = acc.Name;
+                ViewBag.ID = acc.ID;
+            }        
             ViewBag.Title = "Home Page";
             //Sản phẩm mới:
             ViewBag.listNewProducts = db.Products.OrderByDescending(p => p.CreatedAt).Take(4).ToList();
@@ -31,6 +42,18 @@ namespace WebBanDienThoai.Controllers
                 list = (List<CartItem>)cart;
             }
             return PartialView(list);
+        }
+
+        [ChildActionOnly]
+        public PartialViewResult TopMenu()
+        {
+            if (Session["user"] != null)           
+            {
+                User acc = (User)Session["User"];
+                ViewBag.Name = acc.Name;
+                ViewBag.ID = acc.ID;
+            }
+            return PartialView();
         }
     }
 }

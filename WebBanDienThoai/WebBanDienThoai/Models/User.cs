@@ -20,8 +20,8 @@ namespace WebBanDienThoai.Models
         public int Insert(User user)
         {
             db.Users.Add(user);
-            //db.SaveChanges();
-            return 1;
+            db.SaveChanges();
+            return user.ID;
         }
 
         public bool CheckUserName(string userName)

@@ -75,23 +75,43 @@ namespace WebBanDienThoai.Controllers
         }
         public ActionResult AddToCart(int productId, int quantity)
         {
-            //ShopMobileDbContext db = new ShopMobileDbContext();
-            //ViewBag.product = db.Products.Where(x => x.ID == productId).ToList();          
-            var cart = Session[CartSession];
-            var product = db.Products.Find(productId);
-
-            if (cart != null)
+            if (Session["user"] == null)
             {
-                var list = (List<CartItem>)cart;
-                if (list.Exists(x => x.Product.ID == productId))
+                return RedirectToAction("Login", "User");
+            }
+            else
+            {
+                //ShopMobileDbContext db = new ShopMobileDbContext();
+                //ViewBag.product = db.Products.Where(x => x.ID == productId).ToList();          
+                var cart = Session[CartSession];
+                var product = db.Products.Find(productId);
+
+                if (cart != null)
                 {
-                    foreach (var item in list)
+                    var list = (List<CartItem>)cart;
+                    if (list.Exists(x => x.Product.ID == productId))
                     {
-                        if (item.Product.ID == productId)
+                        foreach (var item in list)
                         {
-                            item.Quantity += quantity;
+                            if (item.Product.ID == productId)
+                            {
+                                item.Quantity += quantity;
+                            }
                         }
                     }
+                    else
+                    {
+                        //Tạo mới đối tượng cart item
+                        var item = new CartItem();
+                        item.Product.ID = productId;
+                        item.Product.Name = product.Name;
+                        item.Product.Image = product.Image;
+                        item.Quantity = quantity;
+                        item.Product.Price = product.Price;
+                        list.Add(item);
+                    }
+                    //Gán vào Session
+                    Session[CartSession] = list;
                 }
                 else
                 {
@@ -102,50 +122,44 @@ namespace WebBanDienThoai.Controllers
                     item.Product.Image = product.Image;
                     item.Quantity = quantity;
                     item.Product.Price = product.Price;
-                    list.Add(item);                 
+                    var list = new List<CartItem>();
+                    list.Add(item);
+
+                    //Gán vào Session
+                    Session[CartSession] = list;
                 }
-                //Gán vào Session
-                Session[CartSession] = list;
-            }
-            else
-            {
-                //Tạo mới đối tượng cart item
-                var item = new CartItem();
-                item.Product.ID = productId;
-                item.Product.Name = product.Name;
-                item.Product.Image = product.Image;
-                item.Quantity = quantity;
-                item.Product.Price = product.Price;
-                var list = new List<CartItem>();
-                list.Add(item);              
-
-                //Gán vào Session
-                Session[CartSession] = list;
-            }
-
-            return RedirectToAction("Index");              
+                return RedirectToAction("Index");
+            }                        
         }
 
         [System.Web.Mvc.HttpGet]
         public ActionResult Payment()
         {
-            var cart = Session[CartSession];
-            var list = new List<CartItem>();
-            if (cart != null)
+            if (Session["user"] == null)
             {
-                list = (List<CartItem>)cart;
+                return RedirectToAction("Login", "User");
             }
-            return View(list);
+            else
+            {
+                var cart = Session[CartSession];
+                var list = new List<CartItem>();
+                if (cart != null)
+                {
+                    list = (List<CartItem>)cart;
+                }
+                return View(list);
+            }
         }
 
         [System.Web.Mvc.HttpPost]
-        public ActionResult Payment(string userID, string status, string address)
+        public ActionResult Payment(string address)
         {
+            User acc = (User)Session["User"];
             var order = new Order();
             order.CreatedAt = DateTime.Now;
             order.Status = 1;         
             order.ReceivedAddress = address;
-            order.UserID = int.Parse(userID);
+            order.UserID = acc.ID;
 
             try
             {
@@ -158,6 +172,7 @@ namespace WebBanDienThoai.Controllers
                     orderDetail.ProductID = item.Product.ID;
                     orderDetail.OrderID = id;
                     orderDetail.Quantity = item.Quantity;
+                    orderDetail.CreatedAt = DateTime.Now;
                     detail.Insert(orderDetail);
                 }
             }

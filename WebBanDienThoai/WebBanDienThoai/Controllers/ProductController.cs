@@ -42,5 +42,14 @@ namespace WebBanDienThoai.Controllers
             ViewBag.productByCateId = db.Products.Where(x => x.CategoryID == category.ID).ToList();
             return View();
         }
+
+        public ActionResult Search (string keyword)
+        {
+            //Từ khoá tìm kiếm
+            ViewBag.keyword = keyword;
+            //Lọc thông tin sản phẩm theo tên của sản phẩm mà người dùng nhập vào trên ô Input
+            ViewBag.filterByName = db.Products.Where(x => x.Name.Contains(keyword)).ToList();
+            return View();
+        }
     }
 }
