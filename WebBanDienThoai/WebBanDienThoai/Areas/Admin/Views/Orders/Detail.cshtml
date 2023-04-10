@@ -1,0 +1,89 @@
+﻿@model WebBanDienThoai.Models.Order
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Thông tin chi tiết</h2>
+
+<div>
+    <h4>Đơn hàng</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Họ tên
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.Name)
+        </dd>
+        <dt>
+            Số điện thoại
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.Phone)
+        </dd>
+        <dt>
+            Email
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.Email)
+        </dd>
+
+        <dt>
+            Tên sản phẩm
+        </dt>
+
+        <dd>
+            @ViewBag.NameProduct
+        </dd>
+        <dt>
+            Số lượng
+        </dt>
+
+        <dd>
+            @ViewBag.Quantity
+        </dd>
+
+        <dt>
+            Đơn giá
+        </dt>
+        <dd>
+            @(ViewBag.Price.ToString("N0")) VND
+        </dd>
+        <dt>
+            Trạng thái
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+        <dt>
+            Địa chỉ nhận hàng
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReceivedAddress)
+        </dd>
+
+        <dt>
+            Ngày tạo
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CreatedAt)
+        </dd>
+
+        <dt>
+            Ngày sửa
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UpdateAt)
+        </dd>  
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Sửa", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Trở lại", "Index")
+</p>

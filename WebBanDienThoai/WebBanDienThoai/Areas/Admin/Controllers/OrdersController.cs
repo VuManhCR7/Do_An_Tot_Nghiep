@@ -25,6 +25,27 @@ namespace WebBanDienThoai.Areas.Admin.Controllers
             return View(orders.ToPagedList(pageNumber, pageSize));
         }
 
+        public ActionResult Detail(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            //OrdersDetail od = db.OrdersDetails.Find(id.Equals(db.Orders.FirstOrDefault()));
+            Order od = db.Orders.Find(id);
+            var order = db.OrdersDetails.Where(x => x.OrderID == id).FirstOrDefault();
+            var p = db.Products.Where(x => x.ID == order.ProductID).FirstOrDefault();
+            ViewBag.NameProduct = p.Name;
+            ViewBag.Price = p.Price;
+            ViewBag.Quantity = order.Quantity;
+            if (od == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(od);
+        }
+
         [HttpGet]
         public ActionResult Edit(int? id)
         {
